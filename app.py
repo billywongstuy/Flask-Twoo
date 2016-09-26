@@ -27,6 +27,18 @@ def chooseJob():
                 tracker -= jobs[key]
 
 
+def getJobs():
+    sheet = csv.reader(open("occupations.csv"))
+    jobs = {}
+
+    for row in sheet:   
+        job = row[0]
+        percent = row[1]
+        jobs[job] = percent
+        
+
+    return jobs
+
 def beginning(title):
     return '''
     <!DOCTYPE html>
@@ -67,8 +79,8 @@ def helloworld():
 
 @app.route("/occupations")
 def occupy_wallstreet():
-    text = beginning("Occupations") + "<div id=\"header\" style=\"font-family:'Ubuntu';\">" + makeTable() + "</br>" + chooseJob()+ "</div>" + end() 
-    return text
+    return render_template("template.html",Title="Occupations",body="</br>The random job is: " + chooseJob(),jobs=getJobs())
+#text = beginning("Occupations") + "<div id=\"header\" style=\"font-family:'Ubuntu';\">" + makeTable() + "</br>" + chooseJob()+ "</div>" + end()
 
 @app.route("/fun")
 def test_temp():
@@ -76,7 +88,7 @@ def test_temp():
     This is an almost blank page. </br> 
     Oh, and Jinja2, if you put "|safe" after a variable, html tags work!
     '''
-    return render_template("template.html",Title="Fun",body=stuff)
+    return render_template("template.html",Title="Fun",body=stuff,jobs={})
 
 
 if __name__ == "__main__":

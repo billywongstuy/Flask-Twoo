@@ -7,6 +7,11 @@
     <style>body {font-family:Ubuntu}</style>
   </head>
   <body>
+    <table border="1px">
+      {%- for key,item in jobs.iteritems() %}
+      <tr><td>{{key}}</td><td>{{item}}</td></tr>
+      {%- endfor %}
+    </table>
     {{body|safe}}
   </body>
 
