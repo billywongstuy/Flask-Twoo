@@ -29,15 +29,26 @@ def chooseJob():
 
 def getJobs():
     sheet = csv.reader(open("occupations.csv"))
-    jobs = {}
+    jobs = []
 
     for row in sheet:   
-        job = row[0]
-        percent = row[1]
-        jobs[job] = percent
-        
+        array = []
+        array.append(row[0])
+        array.append(row[1])
+        jobs.append(array)
 
     return jobs
+
+
+def makeTable():
+    store = "<table border=\"1px\">"
+    sheet = csv.reader(open("occupations.csv"))
+    for row in sheet:
+        store += "<tr>"
+        store += "<td>" + row[0] + "</td><td>" + row[1] + "</td>" 
+        store += "</tr>"
+    store += "</table></br>"
+    return store
 
 def beginning(title):
     return '''
@@ -61,16 +72,6 @@ def end():
     </body>
     </html>
     '''
-
-def makeTable():
-    store = "<table border=\"1px\">"
-    sheet = csv.reader(open("occupations.csv"))
-    for row in sheet:
-        store += "<tr>"
-        store += "<td>" + row[0] + "</td><td>" + row[1] + "</td>" 
-        store += "</tr>"
-    store += "</table></br>"
-    return store
 
 
 @app.route("/")
