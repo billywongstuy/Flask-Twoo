@@ -4,7 +4,7 @@ import csv
 import random
 
 def chooseJob():
-    sheet = csv.reader(open("occupations.csv"))
+    sheet = csv.reader(open("data/occupations.csv"))
     jobs = {}
 
 

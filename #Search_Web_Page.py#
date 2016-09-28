@@ -1,0 +1,92 @@
+
+
+a = open('lit.txt','r')
+b = a.read()
+
+def wordstolist(text):
+    selection = []
+    word = ''
+    text = text.replace('\n',',')
+    for character in text:
+        if ord(character) >= 65 and ord(character) <= 90 or ord(character) >= 97 and ord(character) <= 122:
+            word += character
+        else:
+            if word != '':
+                selection.append(word)
+            word = ''
+    return selection
+
+def freq(text):
+    frequency = {}
+    words = wordstolist(text)
+    for word in words:
+        if word.lower() not in frequency:
+            frequency[word.lower()] = 1
+        else:
+            frequency[word.lower()] += 1
+    return frequency
+
+def dictolist(text):
+    listee = []
+    text2 = freq(text)
+    for key, value in text2.iteritems():
+        listee.append([value,key])
+    listee.sort()
+    listee.reverse()
+    listee = listee[:60]
+    return listee
+
+print dictolist(b)
+
+
+#def find30freq(text):
+#    a = dictolist(text)
+#    print a[:60]
+#    b = []
+#    shortest = a[0]
+#    secondshortest = a[0]
+#    for value in a:
+#        try:
+#            value + 1
+#        except:
+#            if len(b) <= 60:
+#                b.append(value)
+#                b.append(a[a.index(value)+1])
+#                if a[a.index(value)+1] < a[a.index(shortest)+1]:
+#                    secondshortest = shortest
+#                    shortest = value
+#                    print shortest
+#            elif len(b) >= 60:
+#                if a[a.index(value)+1] > a[a.index(shortest)+1]:
+#                    b[b.index(shortest)+1] = a[a.index(value)+1]
+#                    b[b.index(shortest)] = value
+#                    if a[a.index(value)+1] <= a[a.index(secondshortest)+1]:
+#                        shortest = value
+#                    elif a[a.index(value)+1] > a[a.index(secondshortest)+1]:
+#                        shortest = secondshortest
+#                        secondshortest = value
+#    print b
+    
+    
+searchtext = dictolist(b)
+
+print 'Content-type:html\r\n\r\n'
+print '<html>'
+print '<title>Title Here</title>'
+print '<body>'
+print '<table border="2px">'
+print '<tr>'
+print '<td>Word</td>'
+print '<td>Frequency</td>'
+print '</tr>'
+for word in searchtext:
+        print '<tr>'
+        print '<td>%s</td>' % (word[1])
+        print '<td>%d</td>' % (word[0])
+        print '</tr>'
+
+print '</table>'
+print '</body>'
+print '</html>'
+
+
